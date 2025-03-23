@@ -1,0 +1,111 @@
+models:
+  - name: Program
+    fields:
+      - name: title
+        type: CharField
+        required: true
+      - name: description
+        type: TextField
+        required: true
+      - name: university
+        type: ForeignKey
+        required: true
+        to: University
+      - name: tuition_fee
+        type: DecimalField
+        required: true
+      - name: duration
+        type: CharField
+        required: true
+      - name: start_date
+        type: DateField
+        required: true
+      - name: website
+        type: URLField
+        required: false
+      - name: category
+        type: ForeignKey
+        required: false
+        to: Category
+      - name: country
+        type: CharField
+        required: false
+      - name: language
+        type: CharField
+        required: false
+      - name: is_featured
+        type: BooleanField
+        default: false
+      - name: is_pinned
+        type: BooleanField
+        default: false
+      - name: is_published
+        type: BooleanField
+        default: false
+        
+  - name: University  
+    fields:
+      - name: name
+        type: CharField
+        required: true
+      - name: logo
+        type: ImageField
+        required: false
+      - name: contact_email
+        type: EmailField
+        required: true
+        
+  - name: Category
+    fields:
+      - name: name
+        type: CharField
+        required: true
+        is_unique: true
+        
+  - name: ProgramApplication
+    fields:
+      - name: program
+        type: ForeignKey
+        required: true
+        to: Program
+      - name: name
+        type: CharField
+        required: true
+      - name: email
+        type: EmailField
+        required: true
+      - name: location
+        type: CharField
+        required: false
+      - name: message
+        type: TextField
+        required: false
+        
+  - name: ProgramSubmission
+    fields:  
+      - name: program
+        type: ForeignKey
+        required: true
+        to: Program
+      - name: is_pinned
+        type: BooleanField
+        default: false
+      - name: is_featured
+        type: BooleanField
+        default: false
+      - name: payment
+        type: ForeignKey
+        required: true
+        to: Payment
+        
+  - name: Payment
+    fields:
+      - name: amount
+        type: DecimalField
+        required: true
+      - name: payment_date
+        type: DateTimeField
+        required: true
+      - name: stripe_charge_id
+        type: CharField
+        required: true

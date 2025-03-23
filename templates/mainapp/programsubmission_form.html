@@ -1,0 +1,35 @@
+{% extends "mainapp/layouts/sidebar_layout.html" %}
+    {% load crispy_forms_tags %}
+    {% block head_title %}
+        {% if form.instance.pk %}
+            Update ProgramSubmission
+        {% else %}
+            Create ProgramSubmission
+        {% endif %}
+    {% endblock %}
+    
+    {% block main_content %}
+    <div class="container">
+        <h2 class="h2">
+            {% if form.instance.pk %}
+                Update ProgramSubmission
+            {% else %}
+                Create New ProgramSubmission
+            {% endif %}
+        </h2>
+    
+         <form method="post">
+            {{ form | crispy }}
+            {% csrf_token %}
+    
+            <button type="submit" class="btn btn-primary">
+                {% if form.instance.pk %}
+                    Update
+                {% else %}
+                    Create
+                {% endif %}
+            </button>
+            <a href="{% url 'programsubmission_list' %}" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
+    {% endblock %}

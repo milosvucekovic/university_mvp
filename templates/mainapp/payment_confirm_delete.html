@@ -1,0 +1,37 @@
+{% extends "mainapp/layouts/sidebar_layout.html" %}
+    
+    {% block head_title %}Delete Payment{% endblock %}
+    
+    {% block main_content %}
+    <div class="container">
+        <h1>Delete Payment</h1>
+    
+        <div class="alert alert-danger">
+            <p>Are you sure you want to delete this payment?</p>
+    
+            <div class="card mt-3">
+                <div class="card-body">
+                    
+                    <div class="row mb-2">
+                        <div class="col-4"><strong>Amount:</strong></div>
+                        <div class="col-8">{{ object.amount }}</div>
+                    </div> 
+                    <div class="row mb-2">
+                        <div class="col-4"><strong>Payment Date:</strong></div>
+                        <div class="col-8">{{ object.payment_date }}</div>
+                    </div> 
+                    <div class="row mb-2">
+                        <div class="col-4"><strong>Stripe Charge Id:</strong></div>
+                        <div class="col-8">{{ object.stripe_charge_id }}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">Confirm Delete</button>
+            <a href="{% url 'payment_detail' object.id %}" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
+    {% endblock %}

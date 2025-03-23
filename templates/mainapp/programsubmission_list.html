@@ -1,0 +1,36 @@
+{% extends "mainapp/layouts/sidebar_layout.html" %}
+    
+    {% block head_title %}ProgramSubmission List{% endblock %}
+    
+    {% block main_content %}
+    <div class="container">
+        <h2 class="h2">ProgramSubmission List</h1>
+    
+        <a href="{% url 'programsubmission_create' %}" class="btn btn-primary mb-3">Create New ProgramSubmission</a>
+    
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Program</th> <th>Is Pinned</th> <th>Is Featured</th> <th>Payment</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for programsubmission in programsubmission_list %}
+                <tr>
+                    <td>{{ programsubmission.program }}</td> <td>{{ programsubmission.is_pinned }}</td> <td>{{ programsubmission.is_featured }}</td> <td>{{ programsubmission.payment }}</td>
+                    <td>
+                        <a href="{% url 'programsubmission_detail' programsubmission.id %}" class="btn btn-info btn-sm">View</a>
+                        <a href="{% url 'programsubmission_update' programsubmission.id %}" class="btn btn-warning btn-sm">Edit</a>
+                        <a href="{% url 'programsubmission_delete' programsubmission.id %}" class="btn btn-danger btn-sm">Delete</a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="3">No programsubmissions found.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% endblock %}

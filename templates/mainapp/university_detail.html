@@ -1,0 +1,33 @@
+{% extends "mainapp/layouts/sidebar_layout.html" %}
+    
+    {% block head_title %}University Details{% endblock %}
+    
+    {% block main_content %}
+    <div class="container">
+        <h1>University Details</h1>
+    
+        <div class="card">
+            <div class="card-body">
+                
+                <div class="row mb-2">
+                    <div class="col-4"><strong>Name:</strong></div>
+                    <div class="col-8">{{ university.name }}</div>
+                </div> 
+                <div class="row mb-2">
+                    <div class="col-4"><strong>Logo:</strong></div>
+                    <div class="col-8">{{ university.logo }}</div>
+                </div> 
+                <div class="row mb-2">
+                    <div class="col-4"><strong>Contact Email:</strong></div>
+                    <div class="col-8">{{ university.contact_email }}</div>
+                </div>
+            </div>
+        </div>
+    
+        <div class="mt-3">
+            <a href="{% url 'university_update' university.id %}" class="btn btn-warning">Edit</a>
+            <a href="{% url 'university_delete' university.id %}" class="btn btn-danger">Delete</a>
+            <a href="{% url 'university_list' %}" class="btn btn-secondary">Back to List</a>
+        </div>
+    </div>
+    {% endblock %}

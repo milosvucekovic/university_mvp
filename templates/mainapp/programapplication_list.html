@@ -1,0 +1,36 @@
+{% extends "mainapp/layouts/sidebar_layout.html" %}
+    
+    {% block head_title %}ProgramApplication List{% endblock %}
+    
+    {% block main_content %}
+    <div class="container">
+        <h2 class="h2">ProgramApplication List</h1>
+    
+        <a href="{% url 'programapplication_create' %}" class="btn btn-primary mb-3">Create New ProgramApplication</a>
+    
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Program</th> <th>Name</th> <th>Email</th> <th>Location</th> <th>Message</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for programapplication in programapplication_list %}
+                <tr>
+                    <td>{{ programapplication.program }}</td> <td>{{ programapplication.name }}</td> <td>{{ programapplication.email }}</td> <td>{{ programapplication.location }}</td> <td>{{ programapplication.message }}</td>
+                    <td>
+                        <a href="{% url 'programapplication_detail' programapplication.id %}" class="btn btn-info btn-sm">View</a>
+                        <a href="{% url 'programapplication_update' programapplication.id %}" class="btn btn-warning btn-sm">Edit</a>
+                        <a href="{% url 'programapplication_delete' programapplication.id %}" class="btn btn-danger btn-sm">Delete</a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="4">No programapplications found.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% endblock %}

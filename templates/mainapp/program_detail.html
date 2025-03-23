@@ -1,0 +1,73 @@
+{% extends "mainapp/layouts/sidebar_layout.html" %}
+    
+    {% block head_title %}Program Details{% endblock %}
+    
+    {% block main_content %}
+    <div class="container">
+        <h1>Program Details</h1>
+    
+        <div class="card">
+            <div class="card-body">
+                
+                <div class="row mb-2">
+                    <div class="col-4"><strong>Title:</strong></div>
+                    <div class="col-8">{{ program.title }}</div>
+                </div> 
+                <div class="row mb-2">
+                    <div class="col-4"><strong>Description:</strong></div>
+                    <div class="col-8">{{ program.description }}</div>
+                </div> 
+                <div class="row mb-2">
+                    <div class="col-4"><strong>University:</strong></div>
+                    <div class="col-8">{{ program.university }}</div>
+                </div> 
+                <div class="row mb-2">
+                    <div class="col-4"><strong>Tuition Fee:</strong></div>
+                    <div class="col-8">{{ program.tuition_fee }}</div>
+                </div> 
+                <div class="row mb-2">
+                    <div class="col-4"><strong>Duration:</strong></div>
+                    <div class="col-8">{{ program.duration }}</div>
+                </div> 
+                <div class="row mb-2">
+                    <div class="col-4"><strong>Start Date:</strong></div>
+                    <div class="col-8">{{ program.start_date }}</div>
+                </div> 
+                <div class="row mb-2">
+                    <div class="col-4"><strong>Website:</strong></div>
+                    <div class="col-8">{{ program.website }}</div>
+                </div> 
+                <div class="row mb-2">
+                    <div class="col-4"><strong>Category:</strong></div>
+                    <div class="col-8">{{ program.category }}</div>
+                </div> 
+                <div class="row mb-2">
+                    <div class="col-4"><strong>Country:</strong></div>
+                    <div class="col-8">{{ program.country }}</div>
+                </div> 
+                <div class="row mb-2">
+                    <div class="col-4"><strong>Language:</strong></div>
+                    <div class="col-8">{{ program.language }}</div>
+                </div> 
+                <div class="row mb-2">
+                    <div class="col-4"><strong>Is Featured:</strong></div>
+                    <div class="col-8">{{ program.is_featured }}</div>
+                </div> 
+                <div class="row mb-2">
+                    <div class="col-4"><strong>Is Pinned:</strong></div>
+                    <div class="col-8">{{ program.is_pinned }}</div>
+                </div> 
+                <div class="row mb-2">
+                    <div class="col-4"><strong>Is Published:</strong></div>
+                    <div class="col-8">{{ program.is_published }}</div>
+                </div>
+            </div>
+        </div>
+    
+        <div class="mt-3">
+            <a href="{% url 'program_update' program.id %}" class="btn btn-warning">Edit</a>
+            <a href="{% url 'program_delete' program.id %}" class="btn btn-danger">Delete</a>
+            <a href="{% url 'program_list' %}" class="btn btn-secondary">Back to List</a>
+        </div>
+    </div>
+    {% endblock %}

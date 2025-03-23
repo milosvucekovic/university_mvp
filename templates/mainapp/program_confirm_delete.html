@@ -1,0 +1,77 @@
+{% extends "mainapp/layouts/sidebar_layout.html" %}
+    
+    {% block head_title %}Delete Program{% endblock %}
+    
+    {% block main_content %}
+    <div class="container">
+        <h1>Delete Program</h1>
+    
+        <div class="alert alert-danger">
+            <p>Are you sure you want to delete this program?</p>
+    
+            <div class="card mt-3">
+                <div class="card-body">
+                    
+                    <div class="row mb-2">
+                        <div class="col-4"><strong>Title:</strong></div>
+                        <div class="col-8">{{ object.title }}</div>
+                    </div> 
+                    <div class="row mb-2">
+                        <div class="col-4"><strong>Description:</strong></div>
+                        <div class="col-8">{{ object.description }}</div>
+                    </div> 
+                    <div class="row mb-2">
+                        <div class="col-4"><strong>University:</strong></div>
+                        <div class="col-8">{{ object.university }}</div>
+                    </div> 
+                    <div class="row mb-2">
+                        <div class="col-4"><strong>Tuition Fee:</strong></div>
+                        <div class="col-8">{{ object.tuition_fee }}</div>
+                    </div> 
+                    <div class="row mb-2">
+                        <div class="col-4"><strong>Duration:</strong></div>
+                        <div class="col-8">{{ object.duration }}</div>
+                    </div> 
+                    <div class="row mb-2">
+                        <div class="col-4"><strong>Start Date:</strong></div>
+                        <div class="col-8">{{ object.start_date }}</div>
+                    </div> 
+                    <div class="row mb-2">
+                        <div class="col-4"><strong>Website:</strong></div>
+                        <div class="col-8">{{ object.website }}</div>
+                    </div> 
+                    <div class="row mb-2">
+                        <div class="col-4"><strong>Category:</strong></div>
+                        <div class="col-8">{{ object.category }}</div>
+                    </div> 
+                    <div class="row mb-2">
+                        <div class="col-4"><strong>Country:</strong></div>
+                        <div class="col-8">{{ object.country }}</div>
+                    </div> 
+                    <div class="row mb-2">
+                        <div class="col-4"><strong>Language:</strong></div>
+                        <div class="col-8">{{ object.language }}</div>
+                    </div> 
+                    <div class="row mb-2">
+                        <div class="col-4"><strong>Is Featured:</strong></div>
+                        <div class="col-8">{{ object.is_featured }}</div>
+                    </div> 
+                    <div class="row mb-2">
+                        <div class="col-4"><strong>Is Pinned:</strong></div>
+                        <div class="col-8">{{ object.is_pinned }}</div>
+                    </div> 
+                    <div class="row mb-2">
+                        <div class="col-4"><strong>Is Published:</strong></div>
+                        <div class="col-8">{{ object.is_published }}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">Confirm Delete</button>
+            <a href="{% url 'program_detail' object.id %}" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
+    {% endblock %}

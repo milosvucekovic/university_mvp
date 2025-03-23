@@ -1,0 +1,25 @@
+{% extends "mainapp/layouts/sidebar_layout.html" %}
+    
+    {% block head_title %}Category Details{% endblock %}
+    
+    {% block main_content %}
+    <div class="container">
+        <h1>Category Details</h1>
+    
+        <div class="card">
+            <div class="card-body">
+                
+                <div class="row mb-2">
+                    <div class="col-4"><strong>Name:</strong></div>
+                    <div class="col-8">{{ category.name }}</div>
+                </div>
+            </div>
+        </div>
+    
+        <div class="mt-3">
+            <a href="{% url 'category_update' category.id %}" class="btn btn-warning">Edit</a>
+            <a href="{% url 'category_delete' category.id %}" class="btn btn-danger">Delete</a>
+            <a href="{% url 'category_list' %}" class="btn btn-secondary">Back to List</a>
+        </div>
+    </div>
+    {% endblock %}

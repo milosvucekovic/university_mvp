@@ -1,0 +1,41 @@
+{% extends "mainapp/layouts/sidebar_layout.html" %}
+    
+    {% block head_title %}ProgramApplication Details{% endblock %}
+    
+    {% block main_content %}
+    <div class="container">
+        <h1>ProgramApplication Details</h1>
+    
+        <div class="card">
+            <div class="card-body">
+                
+                <div class="row mb-2">
+                    <div class="col-4"><strong>Program:</strong></div>
+                    <div class="col-8">{{ programapplication.program }}</div>
+                </div> 
+                <div class="row mb-2">
+                    <div class="col-4"><strong>Name:</strong></div>
+                    <div class="col-8">{{ programapplication.name }}</div>
+                </div> 
+                <div class="row mb-2">
+                    <div class="col-4"><strong>Email:</strong></div>
+                    <div class="col-8">{{ programapplication.email }}</div>
+                </div> 
+                <div class="row mb-2">
+                    <div class="col-4"><strong>Location:</strong></div>
+                    <div class="col-8">{{ programapplication.location }}</div>
+                </div> 
+                <div class="row mb-2">
+                    <div class="col-4"><strong>Message:</strong></div>
+                    <div class="col-8">{{ programapplication.message }}</div>
+                </div>
+            </div>
+        </div>
+    
+        <div class="mt-3">
+            <a href="{% url 'programapplication_update' programapplication.id %}" class="btn btn-warning">Edit</a>
+            <a href="{% url 'programapplication_delete' programapplication.id %}" class="btn btn-danger">Delete</a>
+            <a href="{% url 'programapplication_list' %}" class="btn btn-secondary">Back to List</a>
+        </div>
+    </div>
+    {% endblock %}
