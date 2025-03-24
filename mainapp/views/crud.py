@@ -4,15 +4,57 @@ from django.views.generic import (
     DetailView,
     CreateView,
     UpdateView,
-    DeleteView
+    DeleteView,
+    TemplateView
 )
+from django.db.models import Q
+from django.core.paginator import Paginator
 from mainapp.models import *
 from django import forms
 
 class ProgramListView(ListView):
     model = Program
-    template_name = 'mainapp/program_list.html'
+    template_name = 'mainapp/landing_page.html'
     context_object_name = 'program_list'
+    paginate_by = 10
+
+    def get_queryset(self):
+        queryset = Program.objects.filter(is_published=True).select_related('university', 'category')
+        
+        # Get filter parameters
+        search_query = self.request.GET.get('search', '')
+        country = self.request.GET.get('country', '')
+        category_id = self.request.GET.get('category', '')
+        language = self.request.GET.get('language', '')
+
+        # Apply search filter
+        if search_query:
+            queryset = queryset.filter(
+                Q(title__icontains=search_query) |
+                Q(description__icontains=search_query) |
+                Q(university__name__icontains=search_query)
+            )
+
+        # Apply other filters
+        if country:
+            queryset = queryset.filter(country=country)
+        if category_id:
+            queryset = queryset.filter(category_id=category_id)
+        if language:
+            queryset = queryset.filter(language=language)
+
+        # Order by pinned status first, then by title
+        return queryset.order_by('-is_pinned', 'title')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        
+        # Get unique values for filters
+        context['countries'] = Program.objects.filter(is_published=True).values_list('country', flat=True).distinct().exclude(country__isnull=True)
+        context['categories'] = Category.objects.all()
+        context['languages'] = Program.objects.filter(is_published=True).values_list('language', flat=True).distinct().exclude(language__isnull=True)
+        
+        return context
 
 class ProgramDetailView(DetailView):
     model = Program
@@ -182,3 +224,6 @@ class PaymentDeleteView(DeleteView):
     model = Payment
     template_name = 'mainapp/payment_confirm_delete.html'
     success_url = reverse_lazy('payment_list')
+
+class AboutView(TemplateView):
+    template_name = 'mainapp/about.html'

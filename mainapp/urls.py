@@ -3,11 +3,14 @@ from .views import crud
 
 urlpatterns = [
     # Program URLs
-    path('program/', crud.ProgramListView.as_view(), name='program_list'),
+    path('', crud.ProgramListView.as_view(), name='program_list'),
     path('program/<int:pk>/', crud.ProgramDetailView.as_view(), name='program_detail'),
     path('program/create/', crud.ProgramCreateView.as_view(), name='program_create'),
     path('program/<int:pk>/update/', crud.ProgramUpdateView.as_view(), name='program_update'),
     path('program/<int:pk>/delete/', crud.ProgramDeleteView.as_view(), name='program_delete'),
+
+    # About page
+    path('about/', crud.AboutView.as_view(), name='about'),
 
     # University URLs
     path('university/', crud.UniversityListView.as_view(), name='university_list'),
