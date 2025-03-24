@@ -5,7 +5,7 @@ from django.urls import path, include
 from mainapp import views
 
 urlpatterns = [
-    path("", views.WelcomeToSpeedPyView.as_view(), name="welcome"),
+    path("", views.crud.ProgramListView.as_view(), name="program_list"),
     path("pricing", views.PricingView.as_view(), name="pricing"),
     path("dashboard/", views.DashboardView.as_view(), name="dashboard"),
     path("admin/", admin.site.urls),
