@@ -1,73 +1,134 @@
-{% extends "mainapp/layouts/sidebar_layout.html" %}
-    
-    {% block head_title %}Program Details{% endblock %}
-    
-    {% block main_content %}
-    <div class="container">
-        <h1>Program Details</h1>
-    
-        <div class="card">
-            <div class="card-body">
-                
-                <div class="row mb-2">
-                    <div class="col-4"><strong>Title:</strong></div>
-                    <div class="col-8">{{ program.title }}</div>
-                </div> 
-                <div class="row mb-2">
-                    <div class="col-4"><strong>Description:</strong></div>
-                    <div class="col-8">{{ program.description }}</div>
-                </div> 
-                <div class="row mb-2">
-                    <div class="col-4"><strong>University:</strong></div>
-                    <div class="col-8">{{ program.university }}</div>
-                </div> 
-                <div class="row mb-2">
-                    <div class="col-4"><strong>Tuition Fee:</strong></div>
-                    <div class="col-8">{{ program.tuition_fee }}</div>
-                </div> 
-                <div class="row mb-2">
-                    <div class="col-4"><strong>Duration:</strong></div>
-                    <div class="col-8">{{ program.duration }}</div>
-                </div> 
-                <div class="row mb-2">
-                    <div class="col-4"><strong>Start Date:</strong></div>
-                    <div class="col-8">{{ program.start_date }}</div>
-                </div> 
-                <div class="row mb-2">
-                    <div class="col-4"><strong>Website:</strong></div>
-                    <div class="col-8">{{ program.website }}</div>
-                </div> 
-                <div class="row mb-2">
-                    <div class="col-4"><strong>Category:</strong></div>
-                    <div class="col-8">{{ program.category }}</div>
-                </div> 
-                <div class="row mb-2">
-                    <div class="col-4"><strong>Country:</strong></div>
-                    <div class="col-8">{{ program.country }}</div>
-                </div> 
-                <div class="row mb-2">
-                    <div class="col-4"><strong>Language:</strong></div>
-                    <div class="col-8">{{ program.language }}</div>
-                </div> 
-                <div class="row mb-2">
-                    <div class="col-4"><strong>Is Featured:</strong></div>
-                    <div class="col-8">{{ program.is_featured }}</div>
-                </div> 
-                <div class="row mb-2">
-                    <div class="col-4"><strong>Is Pinned:</strong></div>
-                    <div class="col-8">{{ program.is_pinned }}</div>
-                </div> 
-                <div class="row mb-2">
-                    <div class="col-4"><strong>Is Published:</strong></div>
-                    <div class="col-8">{{ program.is_published }}</div>
+{% extends "mainapp/layouts/base_layout.html" %}
+
+{% block head_title %}{{ program.title }} - {{ program.university.name }}{% endblock %}
+
+{% block main_content %}
+<div class="container mx-auto px-4 py-8">
+    <!-- Program Header -->
+    <div class="bg-white rounded-lg shadow-lg overflow-hidden mb-8">
+        <div class="p-6">
+            <div class="flex items-start justify-between">
+                <div>
+                    <div class="flex items-center gap-2 mb-2">
+                        {% if program.is_featured %}
+                        <span class="inline-block px-2 py-1 text-xs font-semibold text-purple-600 bg-purple-100 rounded-full">
+                            Featured
+                        </span>
+                        {% endif %}
+                        {% if program.is_pinned %}
+                        <span class="inline-block px-2 py-1 text-xs font-semibold text-blue-600 bg-blue-100 rounded-full">
+                            🔝 Pinned
+                        </span>
+                        {% endif %}
+                    </div>
+                    <h1 class="text-3xl font-bold text-gray-900 mb-2">{{ program.title }}</h1>
+                    <p class="text-xl text-gray-600">{{ program.university.name }}</p>
+                </div>
+                <a href="#apply-form" 
+                   class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 font-semibold">
+                    APPLY NOW
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Program Details -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- Main Content -->
+        <div class="md:col-span-2">
+            <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+                <h2 class="text-2xl font-semibold text-gray-900 mb-4">Program Description</h2>
+                <div class="prose max-w-none">
+                    {{ program.description|linebreaks }}
                 </div>
             </div>
         </div>
-    
-        <div class="mt-3">
-            <a href="{% url 'program_update' program.id %}" class="btn btn-warning">Edit</a>
-            <a href="{% url 'program_delete' program.id %}" class="btn btn-danger">Delete</a>
-            <a href="{% url 'program_list' %}" class="btn btn-secondary">Back to List</a>
+
+        <!-- Sidebar -->
+        <div class="md:col-span-1">
+            <div class="bg-white rounded-lg shadow-lg p-6">
+                <h2 class="text-xl font-semibold text-gray-900 mb-4">Program Details</h2>
+                <div class="space-y-4">
+                    <div>
+                        <h3 class="text-sm font-medium text-gray-500">Duration</h3>
+                        <p class="mt-1 text-lg text-gray-900">{{ program.duration }}</p>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-medium text-gray-500">Start Date</h3>
+                        <p class="mt-1 text-lg text-gray-900">{{ program.start_date|date:"F Y" }}</p>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-medium text-gray-500">Tuition Fee</h3>
+                        <p class="mt-1 text-lg text-gray-900">{{ program.tuition_fee }}</p>
+                    </div>
+                    {% if program.country %}
+                    <div>
+                        <h3 class="text-sm font-medium text-gray-500">Location</h3>
+                        <p class="mt-1 text-lg text-gray-900">{{ program.country }}</p>
+                    </div>
+                    {% endif %}
+                    {% if program.language %}
+                    <div>
+                        <h3 class="text-sm font-medium text-gray-500">Language</h3>
+                        <p class="mt-1 text-lg text-gray-900">{{ program.language }}</p>
+                    </div>
+                    {% endif %}
+                    {% if program.category %}
+                    <div>
+                        <h3 class="text-sm font-medium text-gray-500">Field of Study</h3>
+                        <p class="mt-1 text-lg text-gray-900">{{ program.category.name }}</p>
+                    </div>
+                    {% endif %}
+                    {% if program.website %}
+                    <div>
+                        <h3 class="text-sm font-medium text-gray-500">Website</h3>
+                        <a href="{{ program.website }}" target="_blank" class="mt-1 text-lg text-blue-600 hover:text-blue-800">
+                            Visit Website
+                        </a>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
         </div>
     </div>
-    {% endblock %}
+
+    <!-- Application Form -->
+    <div id="apply-form" class="bg-white rounded-lg shadow-lg p-6 mt-8">
+        <h2 class="text-2xl font-semibold text-gray-900 mb-6">Apply for this Program</h2>
+        <form method="post" action="{% url 'programapplication_create' %}" class="space-y-6">
+            {% csrf_token %}
+            <input type="hidden" name="program" value="{{ program.id }}">
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <label for="name" class="block text-sm font-medium text-gray-700">Full Name</label>
+                    <input type="text" name="name" id="name" required
+                           class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                </div>
+                <div>
+                    <label for="email" class="block text-sm font-medium text-gray-700">Email Address</label>
+                    <input type="email" name="email" id="email" required
+                           class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                </div>
+                <div>
+                    <label for="location" class="block text-sm font-medium text-gray-700">Location</label>
+                    <input type="text" name="location" id="location" required
+                           class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                </div>
+                <div>
+                    <label for="message" class="block text-sm font-medium text-gray-700">Message (Optional)</label>
+                    <textarea name="message" id="message" rows="3"
+                              class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"></textarea>
+                </div>
+            </div>
+
+            <div class="flex justify-end">
+                <button type="submit" 
+                        class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 font-semibold">
+                    Submit Application
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

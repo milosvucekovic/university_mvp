@@ -9,6 +9,7 @@ from django.views.generic import (
 )
 from django.db.models import Q
 from django.core.paginator import Paginator
+from django.contrib import messages
 from mainapp.models import *
 from django import forms
 
@@ -151,9 +152,13 @@ class ProgramApplicationDetailView(DetailView):
 class ProgramApplicationCreateView(CreateView):
     model = ProgramApplication
     fields = ['program', 'name', 'email', 'location', 'message']
-
     template_name = 'mainapp/programapplication_form.html'
-    success_url = reverse_lazy('programapplication_list')
+    success_url = reverse_lazy('program_list')
+
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        messages.success(self.request, 'Your application has been submitted successfully! We will contact you soon.')
+        return response
 
 class ProgramApplicationUpdateView(UpdateView):
     model = ProgramApplication
